@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/*
+  Palette is taken from the classic indoor ball and court:
+  court blue for Team A, ball yellow for Team B, navy ink, cool paper, and sand for beach.
+*/
+@theme {
+  --color-paper: #f2f4f7;
+  --color-surface: #ffffff;
+  --color-ink: #12203a;
+  --color-ink-2: #4a5672;
+  --color-ink-3: #6b7690;
+  --color-line: #d9dee7;
+  --color-line-2: #e8ebf1;
+
+  --color-court: #1d4e9e;
+  --color-court-deep: #153a78;
+  --color-court-floor: #2b63be;
+  --color-court-zone: #183f80;
+  --color-court-tint: #e3ebf8;
+
+  --color-ball: #f7c824;
+  --color-ball-deep: #8a6a00;
+  --color-ball-tint: #fdf3cc;
+
+  --color-sand: #e8d5a6;
+  --color-sand-deep: #b89a5c;
+  --color-sand-tint: #f6efdd;
+
+  --color-up: #1c7a4a;
+  --color-down: #b3392d;
+  --color-flag: #b3392d;
+  --color-flag-tint: #f9e3e0;
+
+  --font-display: var(--font-big-shoulders), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+
+  --radius-chip: 999px;
+  --radius-panel: 14px;
+  --radius-control: 10px;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-feature-settings: "tnum" 0;
+  text-rendering: optimizeLegibility;
+}
+
+/* Numbers that people compare (ratings, deltas, counts) line up in columns. */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72;
+  letter-spacing: -0.005em;
+  line-height: 0.95;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-court);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--color-ball);
+  color: var(--color-ink);
+}
+
+dialog::backdrop {
+  background: rgb(18 32 58 / 0.55);
+}
+
+dialog[open] {
+  animation: sheet-in 220ms var(--ease-out-quart);
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+
+/* The one orchestrated moment: a new team walking onto the court. */
+@keyframes take-court {
+  from {
+    transform: translateY(10px) scale(0.96);
+    opacity: 0;
+  }
+}
+
+.take-court {
+  animation: take-court 420ms var(--ease-out-quart) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
